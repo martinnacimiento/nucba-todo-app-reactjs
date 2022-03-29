@@ -1,25 +1,48 @@
-import logo from './logo.svg';
-import './App.css';
+import { useState } from "react";
 
 function App() {
+  // Logic
+  const [task, setTask] = useState('')
+  const [tasks, setTasks] = useState([])
+
+  const inputHandler = (e) => setTask(e.target.value)
+  const addTaskHandler = () => {
+    setTasks([ ...tasks, task ])
+    setTask('')
+  }
+
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
+    <div className="bg-slate-800 w-screen h-screen flex justify-center items-center flex-col">
+      <div className="flex flex-row justify-center w-1/4">
+        <input 
+          className="border-0 bg-white rounded-lg m-1"
+          type="text"
+          placeholder="Ingresar tarea"
+          value={task}
+          onInput={inputHandler}
+        />
+
+        <button
+          onClick={addTaskHandler}
+          className="bg-purple-500 p-2 rounded-sm" 
         >
-          Learn React
-        </a>
-      </header>
+          Add
+        </button>
+      </div>
+
+      <div className="mt-4 text-white">
+        <h3>Tasklist</h3>
+        <ul>
+          {
+            tasks.map(task => <li>{task}</li>)
+          }
+        </ul>
+      </div>
+      
     </div>
   );
 }
+
 
 export default App;
